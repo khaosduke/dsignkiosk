@@ -20,7 +20,8 @@
 
   "permissions": [
     "tabs",
-    "sessions"
+    "sessions",
+    "<all_urls>"
   ],
 
   "background": {
