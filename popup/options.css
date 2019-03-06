@@ -1,0 +1,13 @@
+html {
+
+}
+
+#popup-content {
+  width: 300px;
+}
+
+label {
+  display:block;
+  font-size: 1em;
+  font-weight:bold;
+}

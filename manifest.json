@@ -1,0 +1,32 @@
+{
+
+  "manifest_version": 2,
+  "name": "Digital Sign Tab Manager",
+  "version": "0.9",
+
+  "description": "Ensures only one tab is open when using a web page as a digital sign.",
+
+  "icons": {
+    "48": "icons/lock.svg"
+  },
+
+  "browser_action": {
+    "default_icon": {
+      "42": "icons/lock.svg"
+    },
+    "default_title": "Digital Sign Options",
+    "default_popup": "popup/options.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "sessions"
+  ],
+
+  "background": {
+    "scripts":["tabman.js"]
+  }
+
+
+
+}
