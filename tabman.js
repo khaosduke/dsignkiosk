@@ -7,45 +7,45 @@ Add-on for FireFox by Wilfredo Crespo
 
 //Get all the current tabs
 
-//TODO: Setup, get all tabs, remove all but one
-//Close every but the active window
-//Setup listener for any new open Tabs
-//Close them as they open
+//TODO: Add whitelist function
+var whitelistUrls = ["about:debugging"];
+
+function urlWhiteListed(tab) {
+  console.log(tab.url.match(whitelistUrls[0]));
+
+  for (var i = 0; i<whitelistUrls.length-1;i++) {
+    if (tab.url.match(whiteListUrls[i])) {
+      console.log(tab.url);
+      return true;
+    }
+  }
+  console.log("returning false");
+  return false;
+}
 
 function setup() {
   let allTabsQuery = browser.tabs.query({});
 
   allTabsQuery.then( function(tabs){
     let tabIds = tabs.map(tabObj=>tabObj.id);
-    console.log(tabIds);
     //Remove the first tab id, we will leave that one alone for now;
     tabIds.shift();
-    console.log(tabIds);
+    //browser.tabs.remove(tabIds);
+
+    //browser.tabs.onCreated.addListener(removeMe)
+
+    //Check against whiteList
+    let whiteListedTabs = tabs.filter(tabObj=>!urlWhiteListed(tabObj));
+    //Tab urls
+    let urls = whiteListedTabs.map(tabObj=>tabObj.url);
+    console.log(urls);
   },
   onError);
 }
 
-console.log("im here");
-
-var allTabs;
-
-
 
 function onError(error) {
   console.log(`Error: ${error}`);
-}
-
-//allTabsQuery.then(onQuerySuccess,onError);
-
-function onRemoved() {
-  console.log(`Removed`);
-}
-
-function onQuerySuccess(tabs) {
-  console.log(`Tabs: ${tabs.length}`);
-  console.log(tabs);
-  //var removing = browser.tabs.remove(14);
-  //removing.then(onRemoved, onError);
 }
 
 function removeMe(tab) {
