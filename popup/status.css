@@ -4,6 +4,10 @@ html {
 
 #popup-content {
   width: 300px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 label {
@@ -14,4 +18,9 @@ label {
 
 button {
   width:90%;
+  font-size:1em;
+  margin: 0 auto;
+  text-align:center;
+  display:table-cell;
+  vertical-align: middle;
 }
