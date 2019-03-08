@@ -11,16 +11,14 @@ var whitelistUrls = ["about:debugging",
 function setup() {
   let allTabsQuery = browser.tabs.query({});
 
-  allTabsQuery.then( function(tabs){
-    //browser.tabs.onCreated.addListener(removeMe)
-
+  allTabsQuery.then( function(tabs) {
     //Save the first tab
     tabs.shift();
     //Check against our whitelist
     let tabsToKill = tabs.filter(tabObj=>!urlWhitelisted(tabObj));
     //Get all our non white listed tab ids
     let tabIdsToKill = tabsToKill.map(tabObj=>tabObj.id);
-    browser.tabs.remove(tabIdsToKill);
+    //browser.tabs.remove(tabIdsToKill);
 
   },
   onError);
@@ -35,6 +33,14 @@ function urlWhitelisted(tab) {
   return false;
 }
 
+function fullscreen() {
+  browser.windows.getAll().then((windowInfoArray) => {
+  	for (currentWindow of windowInfoArray) {
+  		browser.windows.update(currentWindow.id, {state: "fullscreen"});
+  	}
+  }, onError);
+}
+
 function onError(error) {
   console.log(`Error: ${error}`);
 }
@@ -44,4 +50,5 @@ function removeMe(tab) {
 }
 
 setup();
-browser.tabs.onCreated.addListener(removeMe)
+//browser.tabs.onCreated.addListener(removeMe)
+//fullscreen();

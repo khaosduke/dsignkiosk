@@ -15,14 +15,18 @@
       "42": "icons/lock.svg"
     },
     "default_title": "Digital Sign Options",
-    "default_popup": "popup/options.html"
+    "default_popup": "popup/status.html"
   },
 
   "permissions": [
     "tabs",
     "sessions",
-    "<all_urls>"
+    "storage"
   ],
+
+  "options_ui": {
+  "page": "options/options.html"
+  },
 
   "background": {
     "scripts":["tabman.js"]
