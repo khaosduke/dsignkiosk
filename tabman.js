@@ -10,19 +10,21 @@ var pulledOptions = {};
 
 function setup() {
   console.log("Setting up...");
-  let allTabsQuery = browser.tabs.query({});
+  return new Promise((resolve, reject)=>{
+    let allTabsQuery = browser.tabs.query({});
 
-  allTabsQuery.then( function(tabs) {
-    //Save the first tab
-    tabs.shift();
-    //Check against our whitelist
-    let tabsToKill = tabs.filter(tabObj=>!urlWhitelisted(tabObj));
-    //Get all our non white listed tab ids
-    let tabIdsToKill = tabsToKill.map(tabObj=>tabObj.id);
-    //browser.tabs.remove(tabIdsToKill);
-
-  },
-  onError);
+    allTabsQuery.then( function(tabs) {
+      //Save the first tab
+      tabs.shift();
+      //Check against our whitelist
+      let tabsToKill = tabs.filter(tabObj=>!urlWhitelisted(tabObj));
+      //Get all our non white listed tab ids
+      let tabIdsToKill = tabsToKill.map(tabObj=>tabObj.id);
+      //browser.tabs.remove(tabIdsToKill);
+      resolve(true);
+    },
+    onError);
+  });
 }
 
 function getSettings() {
@@ -70,8 +72,9 @@ function removeMe(tab) {
 
 
 getSettings().then((result)=> {
+  setup();
+}).then((result)=> {
   fullscreen();
 });
-//setup();
+
 //browser.tabs.onCreated.addListener(removeMe)
-//fullscreen();
