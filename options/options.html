@@ -10,16 +10,25 @@
   <div id="popup-content">
     <form>
       <label name="allow-options">Auto Fullscreen</label>
-      <input type="checkbox" name="allow-options">
+      <input type="checkbox" name="auto-fullscreen" id="auto-fullscreen">
       <br>
       <label name='url'>Tab URL</label>
       <input name='url' type='text'>
+
+      <button type="submit" class="button">Save Settings</button>
     </form>
 
     <img id='settings-button' src='../icons/gear.svg' height="42px" width="42px" />
+
+    <div id='save-status'>
+        <span id='saved'>&nbsp</span>
+        <span id='not-saved'>&nbsp</span>
+    </div>
+
   </div>
+
   <div id="error-content" class="hidden">
-    <p>Can't beastify this web page.</p><p>Try a different page.</p>
+
   </div>
   <script src="options.js"></script>
 </body>

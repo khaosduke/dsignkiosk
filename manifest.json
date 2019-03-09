@@ -30,8 +30,12 @@
 
   "background": {
     "scripts":["tabman.js"]
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "@dsignkiosk"
+    }
   }
-
-
 
 }

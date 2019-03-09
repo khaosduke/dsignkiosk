@@ -6,9 +6,10 @@ var whitelistUrls = ["about:debugging",
                      "about:addons"];
 
 
-
+var pulledOptions = {};
 
 function setup() {
+  console.log("Setting up...");
   let allTabsQuery = browser.tabs.query({});
 
   allTabsQuery.then( function(tabs) {
@@ -24,6 +25,19 @@ function setup() {
   onError);
 }
 
+function getSettings() {
+  return new Promise((resolve, reject)=>{
+    function setOptions(result) {
+      pulledOptions = result;
+      //console.log(pulledOptions);
+      resolve(true);
+    }
+    let getting = browser.storage.sync.get(["autoFullscreen"]);
+    getting.then(setOptions, onError);
+  });
+}
+
+
 function urlWhitelisted(tab) {
   for (var index in whitelistUrls) {
     if (tab.url.match(whitelistUrls[index])) {
@@ -33,12 +47,17 @@ function urlWhitelisted(tab) {
   return false;
 }
 
+
 function fullscreen() {
-  browser.windows.getAll().then((windowInfoArray) => {
-  	for (currentWindow of windowInfoArray) {
-  		browser.windows.update(currentWindow.id, {state: "fullscreen"});
-  	}
-  }, onError);
+  //console.log(pulledOptions.autoFullscreen);
+  if(pulledOptions.autoFullscreen) {
+    console.log("where am i?");
+    browser.windows.getAll().then((windowInfoArray) => {
+    	for (currentWindow of windowInfoArray) {
+    		browser.windows.update(currentWindow.id, {state: "fullscreen"});
+    	}
+    }, onError);
+  }
 }
 
 function onError(error) {
@@ -49,6 +68,10 @@ function removeMe(tab) {
   browser.tabs.remove(tab.id);
 }
 
-setup();
+
+getSettings().then((result)=> {
+  fullscreen();
+});
+//setup();
 //browser.tabs.onCreated.addListener(removeMe)
 //fullscreen();
