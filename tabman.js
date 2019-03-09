@@ -21,6 +21,7 @@ function setup() {
       //Get all our non white listed tab ids
       let tabIdsToKill = tabsToKill.map(tabObj=>tabObj.id);
       //browser.tabs.remove(tabIdsToKill);
+      console.log(`Removing ${tabIdsToKill.length} tabs`);
       resolve(true);
     },
     onError);
@@ -28,21 +29,23 @@ function setup() {
 }
 
 function getSettings() {
+  console.log("Getting settings...");
   return new Promise((resolve, reject)=>{
     function setOptions(result) {
-      pulledOptions = result;
-      //console.log(pulledOptions);
+      pulledOptions = result.autoFullscreen;
+      whitelistUrls.push(result.url);
       resolve(true);
     }
-    let getting = browser.storage.sync.get(["autoFullscreen"]);
+    let getting = browser.storage.sync.get(["autoFullscreen","url"]);
     getting.then(setOptions, onError);
   });
 }
 
 
 function urlWhitelisted(tab) {
-  for (var index in whitelistUrls) {
-    if (tab.url.match(whitelistUrls[index])) {
+  console.log("Checking against white listed URLs");
+  for (url of whitelistUrls) {
+    if (tab.url.match(url)) {
       return true;
     }
   }
@@ -51,30 +54,36 @@ function urlWhitelisted(tab) {
 
 
 function fullscreen() {
-  //console.log(pulledOptions.autoFullscreen);
-  if(pulledOptions.autoFullscreen) {
-    console.log("where am i?");
-    browser.windows.getAll().then((windowInfoArray) => {
-    	for (currentWindow of windowInfoArray) {
-    		browser.windows.update(currentWindow.id, {state: "fullscreen"});
-    	}
-    }, onError);
-  }
+  console.log("Going to full screen mode");
+  return new Promise((resolve,reject)=> {
+    if(pulledOptions.autoFullscreen) {
+      browser.windows.getAll().then((windowInfoArray) => {
+      	for (currentWindow of windowInfoArray) {
+      		browser.windows.update(currentWindow.id, {state: "fullscreen"});
+      	}
+      }, onError);
+    }
+    resolve(true);
+  });
 }
 
 function onError(error) {
+  //General error function for all rejected promises
   console.log(`Error: ${error}`);
 }
 
 function removeMe(tab) {
-  browser.tabs.remove(tab.id);
+  console.log("Tab opened, closing it");
+  //browser.tabs.remove(tab.id);
 }
 
-
+//Make sure settings are pulled then proceed to setup and implementing the options
 getSettings().then((result)=> {
   setup();
 }).then((result)=> {
   fullscreen();
+  //Setup listener
+  browser.tabs.onCreated.addListener(removeMe);
 });
 
-//browser.tabs.onCreated.addListener(removeMe)
+//

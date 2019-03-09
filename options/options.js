@@ -1,8 +1,10 @@
+
+
 function restoreOptions() {
 
   function setCurrentChoices(result) {
     document.querySelector("#auto-fullscreen").checked = result['autoFullscreen'] || null;
-
+    document.querySelector("#url").value = result['url'] || null;
   }
 
   function onError(error) {
@@ -10,7 +12,7 @@ function restoreOptions() {
 
   }
 
-  var getting = browser.storage.sync.get(["autoFullscreen"]);
+  var getting = browser.storage.sync.get(["autoFullscreen","url"]);
   getting.then(setCurrentChoices, onError);
 }
 
@@ -18,8 +20,8 @@ function saveOptions(e) {
   e.preventDefault();
   console.log(document.querySelector('#auto-fullscreen').checked);
   browser.storage.sync.set({
-
     autoFullscreen: document.querySelector('#auto-fullscreen').checked,
+    url: document.querySelector('#url').value
   });
 
   document.querySelector("#saved").innerHTML = "Saved!";
