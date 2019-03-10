@@ -32,8 +32,11 @@ function getSettings() {
   console.log("Getting settings...");
   return new Promise((resolve, reject)=>{
     function setOptions(result) {
-      pulledOptions = result.autoFullscreen;
-      whitelistUrls.push(result.url);
+      pulledOptions = result;
+
+      if( result.url != null && result.url != "") {
+        whitelistUrls.push(result.url);
+      }
       resolve(true);
     }
     let getting = browser.storage.sync.get(["autoFullscreen","url"]);
@@ -44,7 +47,7 @@ function getSettings() {
 
 function urlWhitelisted(tab) {
   console.log("Checking against white listed URLs");
-  for (url of whitelistUrls) {
+  for ( let url of whitelistUrls) {
     if (tab.url.match(url)) {
       return true;
     }
