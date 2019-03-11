@@ -3,13 +3,14 @@ html {
 }
 
 #popup-content {
-  width: 300px;
+  width: 400px;
 }
 
 label {
-
-  font-size: 1.25em;
-  margin: 10% 0;
+  font-weight:bold;
+  font-size: 1.45em;
+  margin: 10% 1%;
+  color:#5f1396;
 
 }
 
@@ -30,4 +31,14 @@ label {
 
 .button {
   margin: 5% 0;
+}
+
+.description {
+  margin: 2% 7%;
+  font-size: 1.25em;
+}
+
+input[type=text] {
+  width: 90%;
+  margin-top:2%;
 }

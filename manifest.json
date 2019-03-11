@@ -7,7 +7,9 @@
   "description": "Ensures only one tab is open when using a web page as a digital sign.",
 
   "icons": {
-    "64": "icons/lock2.svg"
+    "24": "icons/lock2.svg",
+    "48": "icons/lock2.svg",
+    "96": "icons/lock2.svg"
   },
 
   "browser_action": {
@@ -25,7 +27,7 @@
   ],
 
   "options_ui": {
-  "page": "options/options.html"
+    "page": "options/options.html"
   },
 
   "background": {

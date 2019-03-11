@@ -8,12 +8,17 @@
 
 <body>
   <div id="popup-content">
+    <h1>Settings </h1>
     <form>
-      <label name="allow-options">Auto Fullscreen</label>
       <input type="checkbox" name="auto-fullscreen" id="auto-fullscreen">
+      <label name="allow-options">Auto Fullscreen</label>
+      <div class='description'>Automatically enter full screen mode on browser startup. </div>
+
       <br>
       <label name='url'>Tab URL</label>
+      <br/>
       <input name='url' type='text' id='url'>
+      <div class='description'> Any tabs with this URL will not be closed when the browser starts. </div>
 
       <br/>
       <button type="submit" class="button">Save Settings</button>
