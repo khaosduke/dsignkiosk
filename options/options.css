@@ -7,9 +7,10 @@ html {
 }
 
 label {
-  display:block;
-  font-size: 1em;
-  font-weight:bold;
+
+  font-size: 1.25em;
+  margin: 10% 0;
+
 }
 
 #saved {
@@ -25,4 +26,8 @@ label {
 
 #save-status {
   margin:0 6%;
+}
+
+.button {
+  margin: 5% 0;
 }

@@ -7,12 +7,12 @@
   "description": "Ensures only one tab is open when using a web page as a digital sign.",
 
   "icons": {
-    "48": "icons/lock.svg"
+    "64": "icons/lock2.svg"
   },
 
   "browser_action": {
     "default_icon": {
-      "42": "icons/lock.svg"
+      "64": "icons/lock2.svg"
     },
     "default_title": "Digital Sign Options",
     "default_popup": "popup/status.html"

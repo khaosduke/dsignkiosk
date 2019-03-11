@@ -1,13 +1,14 @@
 html {
-
+  background-color:#EDF1F4;
 }
 
 #popup-content {
-  width: 300px;
+  width: 250px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 label {
@@ -16,11 +17,16 @@ label {
   font-weight:bold;
 }
 
-button {
-  width:90%;
-  font-size:1em;
-  margin: 0 auto;
-  text-align:center;
-  display:table-cell;
-  vertical-align: middle;
+.button {
+
+  display:block;
+  background: url('../icons/gear.svg');
+  width:20px;
+  height: 20px;
+
+  margin:5px;
+}
+
+.button:hover {
+  background: url('../icons/gearHover.svg');
 }
