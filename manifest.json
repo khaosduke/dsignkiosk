@@ -31,7 +31,8 @@
   },
 
   "background": {
-    "scripts":["tabman.js"]
+    "scripts":["tabman.js",
+               "lib/URI.js"]
   },
 
   "applications": {

@@ -3,7 +3,8 @@ Add-on for FireFox by Wilfredo Crespo
 */
 
 var whitelistUrls = ["about:debugging",
-                     "about:addons"];
+                     "about:addons",
+                      "about:preferences"];
 
 
 var pulledOptions = {};
@@ -77,7 +78,11 @@ function onError(error) {
 
 function removeMe(tab) {
   console.log("Tab opened, closing it");
-  //browser.tabs.remove(tab.id);
+  console.log(tab);
+  //Check if tab created is whitelisted
+  if( !urlWhitelisted(tab.url)) {
+    browser.tabs.remove(tab.id);
+  }
 }
 
 //Make sure settings are pulled then proceed to setup and implementing the options
